@@ -1,0 +1,27 @@
+Entry
+date
+
+Counter
+name
+count
+LIST of Entry
+
+Board
+total
+LIST of Counter
+
+statistics
+list Counter
+
+//Views
+1 Counter with large button
+List of counters
+Statistics for 1 counter (4 tabs)
+
+//Controllers
+increase count
+add counter
+rename counter
+delete counter
+save all
+load all
