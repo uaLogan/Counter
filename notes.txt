@@ -14,12 +14,16 @@ statistics
 list Counter
 
 //Views
-1 Counter with large button
-List of counters
+1 Counter with large button to inc, smaller to reset
+List of counters (push for above,
+	2 smaller buttons for stats and edit which includes delete)
+--> "NAME - COUNT"
 Statistics for 1 counter (4 tabs)
+--> inherited from abstract statistics
 
 //Controllers
 increase count
+reset count
 add counter
 rename counter
 delete counter
