@@ -1,12 +1,12 @@
-Entry
+[Entry]
 date
 
-Counter
+[Counter]
 name
 count
 LIST of Entry
 
-Board
+[Board]
 total
 LIST of Counter
 
@@ -14,12 +14,15 @@ statistics
 list Counter
 
 //Views
-1 Counter with large button to inc, smaller to reset
-List of counters (push for above,
-	2 smaller buttons for stats and edit which includes delete)
---> "NAME - COUNT"
-Statistics for 1 counter (4 tabs)
---> inherited from abstract statistics
+[1 Counter]
+-with large button to inc, smaller to reset
+[List of counters]
+-"NAME - COUNT"
+-push for "1 Counter" view
+-2 smaller buttons for stats, rename, delete
+[Statistics for 1 counter]
+-4 tabs
+-each inherited from abstract StatsView
 
 //Controllers
 increase count
