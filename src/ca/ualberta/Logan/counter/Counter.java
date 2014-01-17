@@ -102,5 +102,10 @@ public class Counter
 		this.id = id;
 	}
 	
+	public String toString ()
+	{
+		String res = this.getName() + " - " + this.getCount();
+		return res;
+	}
 
 }
