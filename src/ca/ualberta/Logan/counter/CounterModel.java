@@ -42,6 +42,7 @@ public class CounterModel
 	public long getCount()
 	{
 		return count;
+	}
 	
 	
 	public void setCount(long count)
