@@ -22,11 +22,14 @@ public class Board
 		this.counters = counters;
 	}
 	
-	public void addCounter()
+	public Counter addCounter()
 	{
 		Counter counter = new Counter();
 		ArrayList<Counter> list = this.getCounters();
 		list.add(counter);
+		this.setCounters(list);
+		total++;
+		return counter;
 	}
 
 	public void addCounter(String name)
@@ -34,6 +37,7 @@ public class Board
 		Counter counter = new Counter(name);
 		ArrayList<Counter> list = this.getCounters();
 		list.add(counter);
+		total++;
 	}
 	
 	public void addCounter(String name, long count, long id, ArrayList<Entry> entries)
@@ -41,14 +45,17 @@ public class Board
 		Counter counter = new Counter(name, count, id, entries);
 		ArrayList<Counter> list = this.getCounters();
 		list.add(counter);
+		total++;
 	}
 	
 	public void deleteCounter(long id)
 	{
 		ArrayList<Counter> list = this.getCounters();
 		for(Counter c : list)
-			if(c.getId() == id)
+			if(c.getId() == id){
 				list.remove(c);
+				total--;
+			}
 	}
 	
 	public void renameCounter(String name, long id)

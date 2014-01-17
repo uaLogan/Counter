@@ -17,6 +17,7 @@ public class Counter
 		this.count = 0;
 		this.entries = new ArrayList<Entry>();
 		// TODO: get new unused ID
+		this.id = 0;
 	}
 	
 	public Counter(String name)
@@ -26,6 +27,7 @@ public class Counter
 		this.count = 0;
 		this.entries = new ArrayList<Entry>();
 		// TODO: get new unused ID
+		this.id = 0;
 	}
 
 	public Counter(String name, long count, long id, ArrayList<Entry> entries)
