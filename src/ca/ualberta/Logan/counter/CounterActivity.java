@@ -40,9 +40,9 @@ public class CounterActivity extends Activity
 	}
 	
 	@Override
-	protected void onStart()
+	protected void onResume()
 	{
-		super.onStart();
+		super.onResume();
 		adapter = new ArrayAdapter<Counter>(this,R.layout.counters_list, board.getCounters());
 		countersList.setAdapter(adapter);
 	}
@@ -50,7 +50,6 @@ public class CounterActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.counter, menu);
 		return true;
