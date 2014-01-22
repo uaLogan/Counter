@@ -13,6 +13,11 @@ public class Board
 	private CounterAdapter adapter;
 	private Context context;
 	private ListView countersList;
+	
+	public Board(Storage storage, Context context, ListView countersList)
+	{
+		this(storage.getTotal(), storage.getCounters(), context, countersList);
+	}
 
 	public Board(Context context, ListView countersList)
 	{
@@ -26,10 +31,6 @@ public class Board
 		this.counters = counters;
 		this.context = context;
 		this.countersList = countersList;
-		
-		Counter c = new Counter("aaaa");
-		this.counters.add(c);
-		
 		this.adapter = new CounterAdapter(this.context,R.layout.counters_list, this.counters);
 		this.countersList.setAdapter(this.adapter);
 	}

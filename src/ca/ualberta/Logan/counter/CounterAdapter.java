@@ -36,7 +36,7 @@ public class CounterAdapter extends ArrayAdapter<Counter>
         if (item!= null)
         {
             //only one TextView
-            TextView itemView = (TextView) view.findViewById(R.id.listView1);
+            TextView itemView = (TextView) view.findViewById(R.id.countersListText);
             if (itemView != null)
             {
                 //format view

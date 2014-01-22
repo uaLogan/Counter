@@ -1,12 +1,18 @@
 package ca.ualberta.Logan.counter;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -41,6 +47,7 @@ public class CounterActivity extends Activity
 			public void onClick(View v)
 			{
 				board.addCounter();
+				saveBoard(board);
 			}
 		});
 		
@@ -64,19 +71,38 @@ public class CounterActivity extends Activity
 	
 	private Board loadBoard()
 	{
-		return new Board(this, countersList);
-		//TODO: actually implement this
+		Board b = null;
+		
+		try
+		{ 
+			FileInputStream fis = openFileInput(FILENAME);
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader in = new BufferedReader(isr);
+			Storage storage = gson.fromJson(in, Storage.class);
+			b = new Board(storage, this, countersList);
+		}
+		catch(Exception e)
+		{
+			b = new Board(this, countersList);
+		}
+		
+		if(b == null)
+			b = new Board(this, countersList);
+		
+		return b;
 	}
 	
 	private void saveBoard(Board board)
 	{
 		FileOutputStream fos;
+		
+		Storage storage = new Storage(board);
 
 		try
 		{
 			fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			gson.toJson(board, osw);
+			gson.toJson(storage, osw);
 			osw.close();
 			fos.close();
 		}
