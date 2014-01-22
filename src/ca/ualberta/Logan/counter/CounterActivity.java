@@ -39,6 +39,7 @@ public class CounterActivity extends Activity
 		gson = new GsonBuilder().create();
 		
 		countersList = (ListView) findViewById(R.id.listView1);
+		
 		Button addButton = (Button) findViewById(R.id.add_id);
 		
 		addButton.setOnClickListener(new View.OnClickListener()
