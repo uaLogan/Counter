@@ -28,7 +28,7 @@ public class CounterAdapter extends ArrayAdapter<Counter>
         if (view == null)
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item, null);
+            view = inflater.inflate(R.layout.counters_list, null);
         }
 
         Counter item = getItem(position);
@@ -36,19 +36,14 @@ public class CounterAdapter extends ArrayAdapter<Counter>
         if (item!= null)
         {
             //only one TextView
-            TextView itemView = (TextView) view.findViewById(R.id.counters_list);
+            TextView itemView = (TextView) view.findViewById(R.id.listView1);
             if (itemView != null)
             {
                 //format view
-                itemView.setText(String.format("%s | %s", item.getTimestamp().toString(), item.getText()));
+                itemView.setText(String.format("%s: %s", item.getName(), item.getCount()));
             }
          }
 
         return view;
     }
-}
-
-public class CounterAdapter extends ArrayAdapter<T>
-{
-
 }

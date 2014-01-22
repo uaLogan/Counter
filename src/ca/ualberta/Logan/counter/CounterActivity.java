@@ -10,11 +10,11 @@ import android.widget.ListView;
 
 public class CounterActivity extends Activity
 {
-	private static final String FILENAME = "counterEntries.sav";
+	private static final String FILENAME = "counterBoard.sav";
 	private ListView countersList;
 	private Board board;
 	
-	public ArrayAdapter<Counter> adapter; 
+	public CounterAdapter adapter; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -54,5 +54,9 @@ public class CounterActivity extends Activity
 		getMenuInflater().inflate(R.menu.counter, menu);
 		return true;
 	}
+	
+	private Board loadBoard()
+	
+	private saveBoard()
 
 }
