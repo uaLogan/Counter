@@ -63,6 +63,15 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
             	//setup listener
             	deleteButton.setOnClickListener(this);
             }
+            
+            //Rename button
+            Button renameButton = (Button) view.findViewById(R.id.countersRename);
+            renameButton.setTag(Integer.valueOf(position));
+            if (renameButton != null)
+            {
+            	//setup listener
+            	renameButton.setOnClickListener(this);
+            }
          }
         
         view.setTag(Integer.valueOf(position));
@@ -83,8 +92,13 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
             	((Activity)context).finish();
 				break;
 			case R.id.countersStats:
+				buttonPos = (Integer)v.getTag();
 				break;
 			case R.id.countersRename:
+				buttonPos = (Integer)v.getTag();
+				Counter item = this.getItem(buttonPos);
+				item.setName("aaaaaaa");
+				this.notifyDataSetChanged();
 				break;
 			case R.id.countersDelete:
             	buttonPos = (Integer)v.getTag();
