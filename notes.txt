@@ -10,8 +10,11 @@ LIST of Entry
 total
 LIST of Counter
 
-statistics
-list Counter
+//TODO
+callback for small buttons
+large button -> counter screen
+rename and delete
+split up Board
 
 //Views
 [1 Counter]
@@ -26,6 +29,8 @@ list Counter
 [Statistics for 1 counter]
 -4 tabs
 -each inherited from abstract StatsView
+
+http://stackoverflow.com/questions/14332409/custom-listview-is-not-responding-to-the-click-event
 
 //Controllers
 increase count

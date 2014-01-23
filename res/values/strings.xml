@@ -8,5 +8,6 @@
     <string name="deleteButton">X</string>
     <string name="statsButton">Stats</string>
     <string name="renameButton">Edit</string>
+    <string name="goButton">Count!</string>
 
 </resources>

@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -50,6 +51,15 @@ public class CounterActivity extends Activity
 				board.addCounter();
 				saveBoard(board);
 			}
+		});
+		
+		countersList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+		    public void onItemClick(AdapterView parent, View v, int position, long id)
+		    {    	
+		    	setResult(RESULT_OK);
+		        finish();
+		    }
 		});
 		
 		recoverBoard();
