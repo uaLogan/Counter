@@ -31,6 +31,8 @@ split up Board
 -each inherited from abstract StatsView
 
 http://stackoverflow.com/questions/14332409/custom-listview-is-not-responding-to-the-click-event
+http://stackoverflow.com/questions/2076037/inside-onclicklistener-i-cannot-access-a-lot-of-things-how-to-approach
+
 
 //Controllers
 increase count

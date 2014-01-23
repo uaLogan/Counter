@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,7 +15,7 @@ import android.app.Activity;
 //Mostly adapted from http://stackoverflow.com/questions/2265661/how-to-use-arrayadaptermyclass
 //Retrieved January 21, 2014
 
-public class CounterAdapter extends ArrayAdapter<Counter>
+public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickListener
 {
 	private Context context;
 
@@ -47,18 +48,11 @@ public class CounterAdapter extends ArrayAdapter<Counter>
             
             //Count! button
             Button goButton = (Button) view.findViewById(R.id.countersGo);
+            goButton.setTag(Integer.valueOf(position));
             if (goButton != null)
             {
             	//setup listener
-            	goButton.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v)
-                    {
-                    	((Activity)context).setResult(Activity.RESULT_OK);
-                    	((Activity)context).finish();
-                    }
-                });
+            	goButton.setOnClickListener(this);
             }
             
             //Delete button
@@ -67,20 +61,7 @@ public class CounterAdapter extends ArrayAdapter<Counter>
             if (deleteButton != null)
             {
             	//setup listener
-            	deleteButton.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v)
-                    {
-                    	Object tag = v.getTag();
-                    	Integer buttonPos = (Integer)v.getTag();
-                    	if(buttonPos == 2)
-                    	{
-                    	((Activity)context).setResult(Activity.RESULT_OK);
-                    	((Activity)context).finish();
-                    	}
-                    }
-                });
+            	deleteButton.setOnClickListener(this);
             }
          }
         
@@ -88,4 +69,28 @@ public class CounterAdapter extends ArrayAdapter<Counter>
 
         return view;
     }
+    
+	@Override
+	public void onClick(View v)
+	{
+		Integer buttonPos = null;
+		
+		switch(v.getId())
+		{
+			case R.id.countersGo:
+            	buttonPos = (Integer)v.getTag();
+            	((Activity)context).setResult(Activity.RESULT_OK);
+            	((Activity)context).finish();
+				break;
+			case R.id.countersStats:
+				break;
+			case R.id.countersRename:
+				break;
+			case R.id.countersDelete:
+            	buttonPos = (Integer)v.getTag();
+            	this.remove(this.getItem(buttonPos));
+            	this.notifyDataSetChanged();
+				break;
+		}
+	}
 }

@@ -53,6 +53,8 @@ public class CounterActivity extends Activity
 			}
 		});
 		
+		countersList.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
+		
 		countersList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 		    public void onItemClick(AdapterView parent, View v, int position, long id)
