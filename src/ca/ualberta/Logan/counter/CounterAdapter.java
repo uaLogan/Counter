@@ -3,14 +3,18 @@ package ca.ualberta.Logan.counter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.app.Activity;
+import android.app.AlertDialog;
 
 //Mostly adapted from http://stackoverflow.com/questions/2265661/how-to-use-arrayadaptermyclass
 //Retrieved January 21, 2014
@@ -82,7 +86,7 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
 	@Override
 	public void onClick(View v)
 	{
-		Integer buttonPos = null;
+		final Integer buttonPos;
 		
 		switch(v.getId())
 		{
@@ -96,14 +100,42 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
 				break;
 			case R.id.countersRename:
 				buttonPos = (Integer)v.getTag();
-				Counter item = this.getItem(buttonPos);
-				item.setName("aaaaaaa");
-				this.notifyDataSetChanged();
+				
+				AlertDialog.Builder alert = new AlertDialog.Builder(context);
+				alert.setTitle("Rename");
+				alert.setMessage("Enter new name:");
+				
+				final EditText input = new EditText(context);
+				input.setInputType(InputType.TYPE_CLASS_TEXT);
+				alert.setView(input);
+				
+				alert.setPositiveButton("Save", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int whichButton)
+					{
+						  String value = input.getText().toString();
+						  Counter item = getItem(buttonPos);
+						  item.setName(value);
+						  notifyDataSetChanged();
+						  ((CounterActivity)context).saveBoard();
+					}
+				});
+				
+				alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+				{
+					  public void onClick(DialogInterface dialog, int whichButton)
+					  {
+					  }
+				});
+				
+				alert.show();
+				
 				break;
 			case R.id.countersDelete:
             	buttonPos = (Integer)v.getTag();
             	this.remove(this.getItem(buttonPos));
             	this.notifyDataSetChanged();
+            	((CounterActivity)context).saveBoard();
 				break;
 		}
 	}

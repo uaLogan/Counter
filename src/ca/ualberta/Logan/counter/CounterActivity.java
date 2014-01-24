@@ -105,7 +105,7 @@ public class CounterActivity extends Activity
 		return b;
 	}
 	
-	private void saveBoard(Board board)
+	public void saveBoard(Board board)
 	{
 		FileOutputStream fos;
 		
@@ -127,6 +127,11 @@ public class CounterActivity extends Activity
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void saveBoard()
+	{
+		saveBoard(board);
 	}
 	
 	private void recoverBoard()
