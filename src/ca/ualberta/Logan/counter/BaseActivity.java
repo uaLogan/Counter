@@ -24,65 +24,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class CounterActivity extends Activity
+public class BaseActivity extends Activity
 {
-	private static final String FILENAME = "counterBoard.sav";
-	private ListView countersList;
-	private Board board;
-	private Gson gson;
+	protected static final String FILENAME = "counterBoard.sav";
+	protected ListView countersList;
+	protected Board board;
+	protected Gson gson;
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_counter);
-		
-		gson = new GsonBuilder().create();
-		
-		countersList = (ListView) findViewById(R.id.listView1);
-		
-		Button addButton = (Button) findViewById(R.id.add_id);
-		
-		addButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				board.addCounter();
-				saveBoard(board);
-			}
-		});
-		
-		countersList.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
-		
-		countersList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-		{
-		    public void onItemClick(AdapterView parent, View v, int position, long id)
-		    {    	
-		    	setResult(RESULT_OK);
-		        finish();
-		    }
-		});
-		
-		recoverBoard();
-	}
-	
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		recoverBoard();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.counter, menu);
-		return true;
-	}
-	
-	private Board loadBoard()
+	protected Board loadBoard()
 	{
 		Board b = null;
 		
@@ -105,7 +54,7 @@ public class CounterActivity extends Activity
 		return b;
 	}
 	
-	public void saveBoard(Board board)
+	protected void saveBoard(Board board)
 	{
 		FileOutputStream fos;
 		
@@ -134,7 +83,7 @@ public class CounterActivity extends Activity
 		saveBoard(board);
 	}
 	
-	private void recoverBoard()
+	protected void recoverBoard()
 	{
 		board = loadBoard();
 		if(board == null)

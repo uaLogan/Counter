@@ -117,7 +117,7 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
 						  Counter item = getItem(buttonPos);
 						  item.setName(value);
 						  notifyDataSetChanged();
-						  ((CounterActivity)context).saveBoard();
+						  ((CounterListActivity)context).saveBoard();
 					}
 				});
 				
@@ -135,7 +135,7 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
             	buttonPos = (Integer)v.getTag();
             	this.remove(this.getItem(buttonPos));
             	this.notifyDataSetChanged();
-            	((CounterActivity)context).saveBoard();
+            	((CounterListActivity)context).saveBoard();
 				break;
 		}
 	}
