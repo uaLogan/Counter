@@ -28,6 +28,7 @@ proguard/
 
 # Package Files #
 *.jar
+!gson*.jar
 *.war
 *.ear
 
