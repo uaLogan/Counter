@@ -26,10 +26,9 @@ import android.widget.ListView;
 
 public class CounterListActivity extends BaseActivity
 {
-	//inherited
-	//private ListView countersList;
-	//private Board board;
-	//private Gson gson;
+	private BoardView board;
+	private Gson gson;
+	private ListView countersList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -64,14 +63,7 @@ public class CounterListActivity extends BaseActivity
 		    }
 		});
 		
-		recoverBoard();
-	}
-	
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		recoverBoard();
+		recoverData();
 	}
 
 	@Override
@@ -80,5 +72,66 @@ public class CounterListActivity extends BaseActivity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.counter, menu);
 		return true;
+	}
+	
+	protected BoardView loadBoard()
+	{
+		BoardView b = null;
+		
+		try
+		{ 
+			FileInputStream fis = openFileInput(FILENAME);
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader in = new BufferedReader(isr);
+			Storage storage = gson.fromJson(in, Storage.class);
+			b = new BoardView(storage, this, countersList);
+		}
+		catch(Exception e)
+		{
+			b = new BoardView(this, countersList);
+		}
+		
+		if(b == null)
+			b = new BoardView(this, countersList);
+		
+		return b;
+	}
+	
+	protected void saveBoard(BoardView board)
+	{
+		FileOutputStream fos;
+		
+		Storage storage = new Storage(board);
+
+		try
+		{
+			fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			gson.toJson(storage, osw);
+			osw.close();
+			fos.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveBoard()
+	{
+		saveBoard(board);
+	}
+	
+	protected void recoverData()
+	{
+		board = loadBoard();
+		if(board == null)
+			board = new BoardView(this, countersList);
+		else
+			board.refreshAdapter();
 	}
 }
