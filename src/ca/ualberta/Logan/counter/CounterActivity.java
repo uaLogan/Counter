@@ -62,7 +62,7 @@ public class CounterActivity extends BaseActivity
 				long newCount = (item.getCount() + 1);
 				item.setCount(newCount);
 				saveStorage(storage);
-				currText.setText(String.format("Count: %s", Long.toString(newCount)));
+				setCurrCount(newCount);
 			}
 		});
 		
@@ -75,7 +75,7 @@ public class CounterActivity extends BaseActivity
 				long newCount = 0;
 				item.setCount(newCount);
 				saveStorage(storage);
-				currText.setText(String.format("Count: %s", Long.toString(newCount)));
+				setCurrCount(newCount);
 			}
 		});
 		
@@ -143,7 +143,13 @@ public class CounterActivity extends BaseActivity
 		{
 			Counter item = storage.getCounter(id);
 			titleText.setText(String.format("%s - Counter", item.getName()));
-			currText.setText(String.format("Count: %s", Long.toString(item.getCount())));
+			setCurrCount(item.getCount());
 		}
+	}
+	
+	private void setCurrCount(long count)
+	{
+		//currText.setText(String.format("Count: %s", Long.toString(count)));
+		countButton.setText(String.format("Count: %s", Long.toString(count)));
 	}
 }

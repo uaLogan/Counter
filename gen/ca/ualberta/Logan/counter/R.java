@@ -21,6 +21,8 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f050000;
         public static final int activity_vertical_margin=0x7f050001;
+        public static final int counterTitle=0x7f050004;
+        public static final int currCount=0x7f050003;
         public static final int list_div_height=0x7f050002;
     }
     public static final class drawable {
