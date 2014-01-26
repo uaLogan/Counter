@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +35,8 @@ public class CounterActivity extends BaseActivity
 	private TextView titleText;
 	private TextView currText;
 	
+	int id = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -47,12 +50,19 @@ public class CounterActivity extends BaseActivity
 		titleText = (TextView) findViewById(R.id.titleTextView);
 		currText = (TextView) findViewById(R.id.currTextView);
 		
+		Intent intent = getIntent();
+		id = intent.getIntExtra("COUNTER_ID", 0);
+		
 		countButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				
+				Counter item = storage.getCounter(id);
+				long newCount = (item.getCount() + 1);
+				item.setCount(newCount);
+				saveStorage(storage);
+				currText.setText(String.format("Count: %s", Long.toString(newCount)));
 			}
 		});
 		
@@ -61,7 +71,11 @@ public class CounterActivity extends BaseActivity
 			@Override
 			public void onClick(View v)
 			{
-				
+				Counter item = storage.getCounter(id);
+				long newCount = 0;
+				item.setCount(newCount);
+				saveStorage(storage);
+				currText.setText(String.format("Count: %s", Long.toString(newCount)));
 			}
 		});
 		
@@ -125,8 +139,11 @@ public class CounterActivity extends BaseActivity
 		storage = loadStorage();
 		if(storage == null)
 			storage = new Storage();
-		//TODO:
-		//else
-		//refreshDisplay (count num and name)
+		else
+		{
+			Counter item = storage.getCounter(id);
+			titleText.setText(String.format("%s - Counter", item.getName()));
+			currText.setText(String.format("Count: %s", Long.toString(item.getCount())));
+		}
 	}
 }

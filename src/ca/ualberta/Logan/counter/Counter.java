@@ -7,30 +7,28 @@ public class Counter
 {
 	private String name;
 	private long count;
-	private long id;
+	private int id;
 	private ArrayList<Entry> entries;
 
-	public Counter()
+	public Counter(int id)
 	{
 		super();
 		this.name = "Untitled";
 		this.count = 0;
 		this.entries = new ArrayList<Entry>();
-		// TODO: get new unused ID
-		this.id = 0;
+		this.id = id;
 	}
 	
-	public Counter(String name)
+	public Counter(String name, int id)
 	{
 		super();
 		this.name = name;
 		this.count = 0;
 		this.entries = new ArrayList<Entry>();
-		// TODO: get new unused ID
-		this.id = 0;
+		this.id = id;
 	}
 
-	public Counter(String name, long count, long id, ArrayList<Entry> entries)
+	public Counter(String name, long count, int id, ArrayList<Entry> entries)
 	{
 		super();
 		this.name = name;
@@ -94,12 +92,12 @@ public class Counter
 		this.entries = entries;
 	}
 	
-	public long getId()
+	public int getId()
 	{
 		return id;
 	}
 
-	public void setId(long id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}

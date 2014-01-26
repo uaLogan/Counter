@@ -37,4 +37,15 @@ public class Storage
 	{
 		return counters;
 	}
+	
+	public Counter getCounter(int id)
+	{
+		for(Counter c : counters)
+		{
+			if(c.getId() == id)
+				return c;
+		}
+		
+		return null;
+	}
 }

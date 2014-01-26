@@ -48,7 +48,12 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
             if (itemView != null)
             {
                 //format view
+            	
+            	//no id
                 itemView.setText(String.format("%s: %s", item.getName(), item.getCount()));
+                
+                //show id
+            	//itemView.setText(String.format("%s | %s: %s", Integer.toString(item.getId()), item.getName(), item.getCount()));
             }
             
             //Count! button
@@ -93,8 +98,9 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
 		{
 			case R.id.countersGo:
             	buttonPos = (Integer)v.getTag();
+            	Counter item = getItem(buttonPos);
             	Intent intent = new Intent(context, CounterActivity.class);
-            	intent.putExtra("key", "someValue");
+            	intent.putExtra("COUNTER_ID", Integer.valueOf(item.getId()));
             	context.startActivity(intent);
 				break;
 			case R.id.countersStats:

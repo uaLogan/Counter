@@ -31,7 +31,7 @@ public class BoardView extends Board
 		this.countersList.setAdapter(this.adapter);
 	}
 	
-	public void addCounter(String name, long count, long id, ArrayList<Entry> entries)
+	public void addCounter(String name, long count, int id, ArrayList<Entry> entries)
 	{
 		Counter counter = new Counter(name, count, id, entries);
 		adapter.add(counter);
@@ -46,7 +46,7 @@ public class BoardView extends Board
 
 	public void addCounter(String name)
 	{
-		long newId = 0; //TODO: get lowest unused ID
+		int newId = newUniqueId();
 		ArrayList<Entry> list = new ArrayList<Entry>();
 		this.addCounter(name, 0, newId, list);
 	}
@@ -57,7 +57,7 @@ public class BoardView extends Board
 		this.countersList.setAdapter(this.adapter);
 	}
 	
-	public void deleteCounter(long id)
+	public void deleteCounter(int id)
 	{
 		ArrayList<Counter> list = this.getCounters();
 		for(Counter c : list)
@@ -70,7 +70,7 @@ public class BoardView extends Board
 		//TODO: this won't actually do anything
 	}
 	
-	public void renameCounter(String name, long id)
+	public void renameCounter(String name, int id)
 	{
 		ArrayList<Counter> list = this.getCounters();
 		for(Counter c : list)
