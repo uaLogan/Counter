@@ -10,6 +10,12 @@ public class Board
 	protected int total;
 	protected ArrayList<Counter> counters;
 
+	public Board(int total, ArrayList<Counter> counters) {
+		super();
+		this.total = total;
+		this.counters = counters;
+	}
+
 	public int getTotal()
 	{
 		return total;

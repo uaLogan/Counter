@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,8 +93,9 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
 		{
 			case R.id.countersGo:
             	buttonPos = (Integer)v.getTag();
-            	((Activity)context).setResult(Activity.RESULT_OK);
-            	((Activity)context).finish();
+            	Intent intent = new Intent(context, CounterActivity.class);
+            	intent.putExtra("key", "someValue");
+            	context.startActivity(intent);
 				break;
 			case R.id.countersStats:
 				buttonPos = (Integer)v.getTag();

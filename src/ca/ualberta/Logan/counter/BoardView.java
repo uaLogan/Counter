@@ -24,9 +24,7 @@ public class BoardView extends Board
 	
 	public BoardView(int total, ArrayList<Counter> counters, Context context, ListView countersList)
 	{
-		super();
-		this.total = total;
-		this.counters = counters;
+		super(total, counters);
 		this.context = context;
 		this.countersList = countersList;
 		this.adapter = new CounterAdapter(this.context,R.layout.counters_list, this.counters);

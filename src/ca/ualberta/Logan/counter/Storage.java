@@ -21,6 +21,13 @@ public class Storage
 		this.counters = board.getCounters();
 	}
 	
+	public Storage()
+	{
+		super();
+		this.total = 0;
+		this.counters = new ArrayList<Counter>();
+	}
+	
 	public int getTotal()
 	{
 		return total;

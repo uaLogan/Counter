@@ -67,6 +67,50 @@ public class CounterActivity extends BaseActivity
 		
 		recoverData();
 	}
+	
+	protected void saveStorage(Storage storage)
+	{
+		FileOutputStream fos;
+
+		try
+		{
+			fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			gson.toJson(storage, osw);
+			osw.close();
+			fos.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	protected Storage loadStorage()
+	{
+		Storage storage = null;
+		
+		try
+		{ 
+			FileInputStream fis = openFileInput(FILENAME);
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader in = new BufferedReader(isr);
+			storage = gson.fromJson(in, Storage.class);
+		}
+		catch(Exception e)
+		{
+			storage = new Storage();
+		}
+		
+		if(storage == null)
+			storage = new Storage();
+		
+		return storage;
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -78,6 +122,11 @@ public class CounterActivity extends BaseActivity
 	
 	protected void recoverData()
 	{
-		
+		storage = loadStorage();
+		if(storage == null)
+			storage = new Storage();
+		//TODO:
+		//else
+		//refreshDisplay (count num and name)
 	}
 }
