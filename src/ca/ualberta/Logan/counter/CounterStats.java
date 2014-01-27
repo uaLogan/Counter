@@ -1,5 +1,6 @@
 package ca.ualberta.Logan.counter;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 
 
@@ -27,6 +28,11 @@ public class CounterStats
 			stats.addEntry(entry);
 		
 		return stats.getListing();
+	}
+	
+	protected String formatMonth(int month)
+	{
+		return (new DateFormatSymbols().getMonths()[month]).substring(0, 3);
 	}
 	
 	abstract class BaseStat
@@ -102,19 +108,24 @@ public class CounterStats
 			int month = entry.getTimestamp().getMonth();
 			int year = entry.getTimestamp().getYear();
 			
+			boolean found = false;
+			
 			for(MonthStat monthstat: statsList)
 			{
 				if(monthstat.isStat(month, year))
 				{
 					//inc
 					monthstat.incStat();
+					found = true;
+					break;
 				}
-				else
-				{
-					//add new
-					MonthStat newMonth = new MonthStat(month, year, 1);
-					statsList.add(newMonth);
-				}
+			}
+			
+			if(found == false)
+			{
+				//add new
+				MonthStat newMonth = new MonthStat(month, year, 1);
+				statsList.add(newMonth);
 			}
 		}
 		
@@ -128,9 +139,12 @@ public class CounterStats
 			String str = "";
 			ArrayList<String> strings = new ArrayList<String>();
 			
+			//strings.add(Integer.toString(statsList.size()));
+			
 			for(MonthStat stat: statsList)
 			{
-				str = String.format("Month of %i %i: %i", stat.getMonth(), stat.getYear(), stat.getCount()); 
+				str = String.format("Month of %s %d: %d", formatMonth(stat.getMonth()), stat.getYear() + 1900, stat.getCount());
+				strings.add(str);
 			}
 
 			return strings;
