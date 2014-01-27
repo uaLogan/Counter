@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="CounterActivity"></activity>
+        <activity android:name="StatsActivity"></activity>
     </application>
 
 </manifest>

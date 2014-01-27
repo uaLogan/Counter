@@ -59,8 +59,7 @@ public class CounterActivity extends BaseActivity
 			public void onClick(View v)
 			{
 				Counter item = storage.getCounter(id);
-				long newCount = (item.getCount() + 1);
-				item.setCount(newCount);
+				long newCount = item.increment();
 				saveStorage(storage);
 				setCurrCount(newCount);
 			}
@@ -72,10 +71,9 @@ public class CounterActivity extends BaseActivity
 			public void onClick(View v)
 			{
 				Counter item = storage.getCounter(id);
-				long newCount = 0;
-				item.setCount(newCount);
+				item.reset();
 				saveStorage(storage);
-				setCurrCount(newCount);
+				setCurrCount(0);
 			}
 		});
 		

@@ -44,9 +44,11 @@ public class Counter
 		list.add(entry);
 	}
 	
-	public void increment()
+	public long increment()
 	{
 		this.addEntry();
+		count++;
+		return count;
 	}
 	
 	public void clearEntries()
@@ -58,6 +60,7 @@ public class Counter
 	public void reset()
 	{
 		this.clearEntries();
+		count = 0;
 	}
 	
 	public String getName()

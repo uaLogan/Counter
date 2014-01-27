@@ -66,6 +66,15 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
             	goButton.setOnClickListener(this);
             }
             
+            //Stats button
+            Button statsButton = (Button) view.findViewById(R.id.countersStats);
+            statsButton.setTag(Integer.valueOf(position));
+            if (statsButton != null)
+            {
+            	//setup listener
+            	statsButton.setOnClickListener(this);
+            }
+            
             //Delete button
             Button deleteButton = (Button) view.findViewById(R.id.countersDelete);
             deleteButton.setTag(Integer.valueOf(position));
@@ -94,18 +103,24 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
 	public void onClick(View v)
 	{
 		final Integer buttonPos;
+		Counter item = null;
+		Intent intent = null;
 		
 		switch(v.getId())
 		{
 			case R.id.countersGo:
             	buttonPos = (Integer)v.getTag();
-            	Counter item = getItem(buttonPos);
-            	Intent intent = new Intent(context, CounterActivity.class);
+            	item = getItem(buttonPos);
+            	intent = new Intent(context, CounterActivity.class);
             	intent.putExtra("COUNTER_ID", Integer.valueOf(item.getId()));
             	context.startActivity(intent);
 				break;
 			case R.id.countersStats:
-				buttonPos = (Integer)v.getTag();
+            	buttonPos = (Integer)v.getTag();
+            	item = getItem(buttonPos);
+            	intent = new Intent(context, StatsActivity.class);
+            	intent.putExtra("COUNTER_ID", Integer.valueOf(item.getId()));
+            	context.startActivity(intent);
 				break;
 			case R.id.countersRename:
 				buttonPos = (Integer)v.getTag();

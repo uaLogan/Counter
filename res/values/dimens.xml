@@ -4,5 +4,6 @@
     <dimen name="list_div_height">2dp</dimen>
     <dimen name="currCount">34dp</dimen>
     <dimen name="counterTitle">19dp</dimen>
+	<dimen name="statsHeader">18dp</dimen>
 
 </resources>

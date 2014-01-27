@@ -11,5 +11,9 @@
     <string name="goButton">Count</string>
     <string name="counterCount">Count!</string>
     <string name="counterReset">Reset</string>
+    <string name="hourTab">Hourly</string>
+    <string name="dayTab">Daily</string>
+    <string name="weekTab">Weekly</string>
+    <string name="monthTab">Monthly</string>
 
 </resources>

@@ -24,6 +24,7 @@ public final class R {
         public static final int counterTitle=0x7f050004;
         public static final int currCount=0x7f050003;
         public static final int list_div_height=0x7f050002;
+        public static final int statsHeader=0x7f050005;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
@@ -31,7 +32,7 @@ public final class R {
     }
     public static final class id {
         public static final int ListLayout=0x7f090000;
-        public static final int action_settings=0x7f09000c;
+        public static final int action_settings=0x7f090011;
         public static final int add_id=0x7f090002;
         public static final int countButton=0x7f090009;
         public static final int countersDelete=0x7f090007;
@@ -40,14 +41,21 @@ public final class R {
         public static final int countersRename=0x7f090006;
         public static final int countersStats=0x7f090005;
         public static final int currTextView=0x7f09000a;
+        public static final int dayButton=0x7f09000d;
+        public static final int hourButton=0x7f09000c;
         public static final int listView1=0x7f090001;
+        public static final int monthButton=0x7f09000f;
         public static final int resetButton=0x7f09000b;
+        public static final int statsListView=0x7f090010;
         public static final int titleTextView=0x7f090008;
+        public static final int weekButton=0x7f09000e;
     }
     public static final class layout {
         public static final int activity_counter=0x7f030000;
         public static final int counters_list=0x7f030001;
         public static final int main_counter=0x7f030002;
+        public static final int stats_activity=0x7f030003;
+        public static final int stats_list=0x7f030004;
     }
     public static final class menu {
         public static final int counter=0x7f080000;
@@ -58,11 +66,15 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int counterCount=0x7f060008;
         public static final int counterReset=0x7f060009;
+        public static final int dayTab=0x7f06000b;
         public static final int deleteButton=0x7f060004;
         public static final int goButton=0x7f060007;
         public static final int hello_world=0x7f060002;
+        public static final int hourTab=0x7f06000a;
+        public static final int monthTab=0x7f06000d;
         public static final int renameButton=0x7f060006;
         public static final int statsButton=0x7f060005;
+        public static final int weekTab=0x7f06000c;
     }
     public static final class style {
         /** 
