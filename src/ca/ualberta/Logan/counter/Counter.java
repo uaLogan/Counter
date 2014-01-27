@@ -13,7 +13,7 @@ public class Counter
 	public Counter(int id)
 	{
 		super();
-		this.name = "Untitled";
+		this.name = "New";
 		this.count = 0;
 		this.entries = new ArrayList<Entry>();
 		this.id = id;

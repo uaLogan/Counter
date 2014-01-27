@@ -8,7 +8,7 @@
     <string name="deleteButton">X</string>
     <string name="statsButton">Stats</string>
     <string name="renameButton">Edit</string>
-    <string name="goButton">Count!</string>
+    <string name="goButton">Count</string>
     <string name="counterCount">Count!</string>
     <string name="counterReset">Reset</string>
 

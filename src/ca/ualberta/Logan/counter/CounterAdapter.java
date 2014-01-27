@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -115,6 +116,9 @@ public class CounterAdapter extends ArrayAdapter<Counter> implements OnClickList
 				
 				final EditText input = new EditText(context);
 				input.setInputType(InputType.TYPE_CLASS_TEXT);
+				InputFilter filters[] = new InputFilter[1];
+				filters[0] = new InputFilter.LengthFilter(15);
+				input.setFilters(filters);
 				alert.setView(input);
 				
 				alert.setPositiveButton("Save", new DialogInterface.OnClickListener()

@@ -41,7 +41,7 @@ public class BoardView extends Board
 	
 	public void addCounter()
 	{
-		this.addCounter("Untitled");
+		this.addCounter("New");
 	}
 
 	public void addCounter(String name)
