@@ -91,7 +91,7 @@ public class StatsActivity extends BaseActivity
 			@Override
 			public void onClick(View v)
 			{
-				
+				statStrings = stats.WeekStats();
 				UpdateListView();
 			}
 		});

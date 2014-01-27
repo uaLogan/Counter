@@ -2,6 +2,8 @@ package ca.ualberta.Logan.counter;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class CounterStats
@@ -27,6 +29,19 @@ public class CounterStats
 		for(Entry entry : entries)
 			stats.addEntry(entry);
 		
+		//fair to assume that entries will already be sorted
+		return stats.getListing();
+	}
+	
+	public ArrayList<String> WeekStats()
+	{
+		ArrayList<Entry> entries = counter.getEntries();
+		WeekStats stats = new WeekStats();
+		
+		for(Entry entry : entries)
+			stats.addEntry(entry);
+		
+		//fair to assume that entries will already be sorted
 		return stats.getListing();
 	}
 	
@@ -85,15 +100,42 @@ public class CounterStats
 				return false;
 		}
 	}
+	
+	private class WeekStat extends BaseStat
+	{
+		private int weekof;
+		
+		public WeekStat(int weekof, int month, int year, int count)
+		{
+			super(month, year, count);
+			this.weekof = weekof;
+		}
+		
+		public int getWeekof()
+		{
+			return weekof;
+		}
+
+		public boolean isStat(int week, int month, int year)
+		{
+			if(month == this.month && year == this.year)
+			{
+				//is day in week?
+				if(week == this.weekof)
+					return true;
+			}
+			
+			return false;
+		}
+	}
 
 	interface BaseStats
 	{
 		public void addEntry(Entry entry);
-		public void sortAll();
 		public ArrayList<String> getListing();
 	}
 	
-	protected class MonthStats
+	protected class MonthStats implements BaseStats
 	{
 		private ArrayList<MonthStat> statsList;
 
@@ -129,11 +171,6 @@ public class CounterStats
 			}
 		}
 		
-		public void sortAll()
-		{
-			
-		}
-		
 		public ArrayList<String> getListing()
 		{
 			String str = "";
@@ -144,6 +181,72 @@ public class CounterStats
 			for(MonthStat stat: statsList)
 			{
 				str = String.format("Month of %s %d: %d", formatMonth(stat.getMonth()), stat.getYear() + 1900, stat.getCount());
+				strings.add(str);
+			}
+
+			return strings;
+		}
+	}
+	
+	protected class WeekStats implements BaseStats
+	{
+		private ArrayList<WeekStat> statsList;
+
+		public WeekStats()
+		{
+			super();
+			statsList = new ArrayList<WeekStat>();
+		}
+		
+		public void addEntry(Entry entry)
+		{
+			Date date = entry.getTimestamp();
+			
+			int month = date.getMonth();
+			int year = date.getYear();
+			
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(entry.getTimestamp());
+			int week = c.get(Calendar.WEEK_OF_YEAR);
+			
+			boolean found = false;
+			
+			for(WeekStat stat: statsList)
+			{
+				if(stat.isStat(week, month, year))
+				{
+					//inc
+					stat.incStat();
+					found = true;
+					break;
+				}
+			}
+			
+			if(found == false)
+			{
+				//add new
+				WeekStat newStat = new WeekStat(week, month, year, 1);
+				statsList.add(newStat);
+			}
+		}
+		
+		public ArrayList<String> getListing()
+		{
+			String str = "";
+			ArrayList<String> strings = new ArrayList<String>();
+			
+			//strings.add(Integer.toString(statsList.size()));
+			
+			for(WeekStat stat: statsList)
+			{
+				//determine first day of week
+				Calendar c = Calendar.getInstance();
+				c.clear();
+				c.set(Calendar.WEEK_OF_YEAR, stat.getWeekof());
+				c.set(Calendar.YEAR, stat.getYear());
+				Date d = c.getTime();
+				
+				str = String.format("Week of %s %d %d: %d", formatMonth(stat.getMonth()), d.getDate(), stat.getYear() + 1900, stat.getCount());
 				strings.add(str);
 			}
 
