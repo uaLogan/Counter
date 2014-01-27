@@ -45,6 +45,18 @@ public class CounterStats
 		return stats.getListing();
 	}
 	
+	public ArrayList<String> DayStats()
+	{
+		ArrayList<Entry> entries = counter.getEntries();
+		DayStats stats = new DayStats();
+		
+		for(Entry entry : entries)
+			stats.addEntry(entry);
+		
+		//fair to assume that entries will already be sorted
+		return stats.getListing();
+	}
+	
 	protected String formatMonth(int month)
 	{
 		return (new DateFormatSymbols().getMonths()[month]).substring(0, 3);
@@ -122,6 +134,33 @@ public class CounterStats
 			{
 				//is day in week?
 				if(week == this.weekof)
+					return true;
+			}
+			
+			return false;
+		}
+	}
+	
+	private class DayStat extends BaseStat
+	{
+		private int day;
+		
+		public DayStat(int day, int month, int year, int count)
+		{
+			super(month, year, count);
+			this.day = day;
+		}
+		
+		public int getDay()
+		{
+			return day;
+		}
+
+		public boolean isStat(int day, int month, int year)
+		{
+			if(month == this.month && year == this.year)
+			{
+				if(day == this.day)
 					return true;
 			}
 			
@@ -242,11 +281,67 @@ public class CounterStats
 				//determine first day of week
 				Calendar c = Calendar.getInstance();
 				c.clear();
-				c.set(Calendar.WEEK_OF_YEAR, stat.getWeekof());
 				c.set(Calendar.YEAR, stat.getYear());
+				c.set(Calendar.WEEK_OF_YEAR, stat.getWeekof());
 				Date d = c.getTime();
 				
 				str = String.format("Week of %s %d %d: %d", formatMonth(stat.getMonth()), d.getDate(), stat.getYear() + 1900, stat.getCount());
+				strings.add(str);
+			}
+
+			return strings;
+		}
+	}
+	
+	protected class DayStats implements BaseStats
+	{
+		private ArrayList<DayStat> statsList;
+
+		public DayStats()
+		{
+			super();
+			statsList = new ArrayList<DayStat>();
+		}
+		
+		public void addEntry(Entry entry)
+		{
+			Date date = entry.getTimestamp();
+			
+			int month = date.getMonth();
+			int year = date.getYear();
+			int day = date.getDate();
+			
+			boolean found = false;
+			
+			for(DayStat stat: statsList)
+			{
+				if(stat.isStat(day, month, year))
+				{
+					//inc
+					stat.incStat();
+					found = true;
+					break;
+				}
+			}
+			
+			if(found == false)
+			{
+				//add new
+				DayStat newStat = new DayStat(day, month, year, 1);
+				statsList.add(newStat);
+			}
+		}
+		
+		public ArrayList<String> getListing()
+		{
+			String str = "";
+			ArrayList<String> strings = new ArrayList<String>();
+			
+			//strings.add(Integer.toString(statsList.size()));
+			
+			for(DayStat stat: statsList)
+			{
+				str = String.format("Day of %s %d %d: %d", formatMonth(stat.getMonth()), stat.getDay(), stat.getYear() + 1900, stat.getCount());
 				strings.add(str);
 			}
 

@@ -69,8 +69,7 @@ public class StatsActivity extends BaseActivity
 			public void onClick(View v)
 			{
 				statStrings = new ArrayList<String>();
-				statStrings.add("derp");
-				statStrings.add("aaaaa");
+				statStrings.add(Integer.toString((stats.getCounter().getEntries().size())));
 				UpdateListView();
 			}
 		});
@@ -80,8 +79,7 @@ public class StatsActivity extends BaseActivity
 			@Override
 			public void onClick(View v)
 			{
-				statStrings = new ArrayList<String>();
-				statStrings.add(Integer.toString((stats.getCounter().getEntries().size())));
+				statStrings = stats.DayStats();
 				UpdateListView();
 			}
 		});
