@@ -69,9 +69,7 @@ public class StatsActivity extends BaseActivity
 			@Override
 			public void onClick(View v)
 			{
-				statStrings = new ArrayList<String>();
-				statStrings.add(Integer.toString((stats.getCounter().getEntries().size())));
-				
+				statStrings = stats.HourStats();
 				UpdateListView();
 			}
 		});

@@ -59,6 +59,18 @@ public class CounterStats
 		return stats.getListing();
 	}
 	
+	public ArrayList<String> HourStats()
+	{
+		ArrayList<Entry> entries = counter.getEntries();
+		HourStats stats = new HourStats();
+		
+		for(Entry entry : entries)
+			stats.addEntry(entry);
+		
+		//fair to assume that entries will already be sorted
+		return stats.getListing();
+	}
+	
 	protected String formatMonth(int month)
 	{
 		return (new DateFormatSymbols().getMonths()[month]).substring(0, 3);
@@ -163,6 +175,40 @@ public class CounterStats
 			if(month == this.month && year == this.year)
 			{
 				if(day == this.day)
+					return true;
+			}
+			
+			return false;
+		}
+	}
+	
+	private class HourStat extends BaseStat
+	{
+		private int day;
+		private int hour;
+		
+		public HourStat(int hour, int day, int month, int year, int count)
+		{
+			super(month, year, count);
+			this.day = day;
+			this.hour = hour;
+		}
+		
+		public int getDay()
+		{
+			return day;
+		}
+		
+		public int getHour()
+		{
+			return hour;
+		}
+
+		public boolean isStat(int hour, int day, int month, int year)
+		{
+			if(month == this.month && year == this.year)
+			{
+				if(day == this.day && hour == this.hour)
 					return true;
 			}
 			
@@ -366,6 +412,63 @@ public class CounterStats
 			for(DayStat stat: statsList)
 			{
 				str = String.format("Day of %s %d %d: %d", formatMonth(stat.getMonth()), stat.getDay(), stat.getYear() + 1900, stat.getCount());
+				strings.add(str);
+			}
+
+			return strings;
+		}
+	}
+	
+	protected class HourStats implements BaseStats
+	{
+		private ArrayList<HourStat> statsList;
+
+		public HourStats()
+		{
+			super();
+			statsList = new ArrayList<HourStat>();
+		}
+		
+		public void addEntry(Entry entry)
+		{
+			Date date = entry.getTimestamp();
+			
+			int month = date.getMonth();
+			int year = date.getYear();
+			int day = date.getDate();
+			int hour = date.getHours();
+			
+			boolean found = false;
+			
+			for(HourStat stat: statsList)
+			{
+				if(stat.isStat(hour, day, month, year))
+				{
+					//inc
+					stat.incStat();
+					found = true;
+					break;
+				}
+			}
+			
+			if(found == false)
+			{
+				//add new
+				HourStat newStat = new HourStat(hour, day, month, year, 1);
+				statsList.add(newStat);
+			}
+		}
+		
+		public ArrayList<String> getListing()
+		{
+			String str = "";
+			ArrayList<String> strings = new ArrayList<String>();
+			
+			//strings.add(Integer.toString(statsList.size()));
+			
+			for(HourStat stat: statsList)
+			{
+				str = String.format("Hour %d of %s %d %d: %d", stat.getHour(), formatMonth(stat.getMonth()), stat.getDay(), stat.getYear() + 1900, stat.getCount());
 				strings.add(str);
 			}
 
