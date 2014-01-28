@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.util.Log;
+
 
 public class CounterStats
 {
@@ -246,6 +248,7 @@ public class CounterStats
 			
 			Calendar c = Calendar.getInstance(); 
 			c.setTime(entry.getTimestamp());
+			c.setFirstDayOfWeek(Calendar.MONDAY);
 			int week = c.get(Calendar.WEEK_OF_YEAR);
 			
 			boolean found = false;
@@ -279,18 +282,39 @@ public class CounterStats
 			for(WeekStat stat: statsList)
 			{
 				//determine first day of week
-				Calendar c = Calendar.getInstance();
-				c.clear();
-				c.set(Calendar.YEAR, stat.getYear());
-				c.set(Calendar.WEEK_OF_YEAR, stat.getWeekof());
-				Date d = c.getTime();
+				//Calendar c = Calendar.getInstance();
+				//c.clear();
+				//c.set(Calendar.YEAR, stat.getYear());
+				//c.set(Calendar.WEEK_OF_YEAR, stat.getWeekof());
+				//Date d = c.getTime();
 				
-				str = String.format("Week of %s %d %d: %d", formatMonth(stat.getMonth()), d.getDate(), stat.getYear() + 1900, stat.getCount());
+				Date d = CounterStats.GetFirstDateOfWeek(stat.getWeekof(), stat.getYear());
+				
+				str = String.format("Week of %s %d %d: %d", formatMonth(d.getMonth()), d.getDate(), stat.getYear() + 1900, stat.getCount());
 				strings.add(str);
 			}
 
 			return strings;
 		}
+	}
+	
+	static Date GetFirstDateOfWeek(int weekOfYear, int year)
+	{
+		Calendar c = Calendar.getInstance();
+		c.clear();
+		c.set(Calendar.YEAR, year+1900);
+		c.setFirstDayOfWeek(Calendar.MONDAY);
+		c.set(Calendar.WEEK_OF_YEAR, weekOfYear);
+		
+		int count = 0;
+		
+		while(c.get(Calendar.DAY_OF_WEEK) != c.getFirstDayOfWeek())
+		{
+			c.add(Calendar.DATE, -1);
+			count++;
+		}
+		
+		return c.getTime();
 	}
 	
 	protected class DayStats implements BaseStats

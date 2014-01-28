@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,6 +71,7 @@ public class StatsActivity extends BaseActivity
 			{
 				statStrings = new ArrayList<String>();
 				statStrings.add(Integer.toString((stats.getCounter().getEntries().size())));
+				
 				UpdateListView();
 			}
 		});
