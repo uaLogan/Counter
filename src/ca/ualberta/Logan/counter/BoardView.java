@@ -1,6 +1,8 @@
 package ca.ualberta.Logan.counter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import android.content.Context;
 import android.widget.ListView;
@@ -37,6 +39,8 @@ public class BoardView extends Board
 		adapter.add(counter);
 		adapter.notifyDataSetChanged();
 		total++;
+		
+		this.sortCounters();
 	}
 	
 	public void addCounter()
@@ -99,5 +103,27 @@ public class BoardView extends Board
 	public void setContext(Context context)
 	{
 		this.context = context;
+	}
+	
+	public void sortCounters()
+	{
+		ArrayList<Counter> arraylist = this.getCounters();
+		Counter list[] = arraylist.toArray(new Counter[0]);
+		
+		Arrays.sort(list, new CounterComparator());
+		
+		arraylist = new ArrayList<Counter>(Arrays.asList(list));
+		this.setCounters(arraylist);
+		
+		this.refreshAdapter();
+	}
+	
+	class CounterComparator implements Comparator<Counter>
+	{
+		@Override
+		public int compare(Counter a, Counter b)
+		{
+			return (int)(a.getCount()) - (int)(b.getCount());
+		}
 	}
 }

@@ -1,7 +1,14 @@
+Where to sort:
+
+onResume
+on add new counter
+
+
+
+/////////////////////
+
+
 pass in a Storage?
-
-
-
 
 
 [Entry]

@@ -133,5 +133,7 @@ public class CounterListActivity extends BaseActivity
 			board = new BoardView(this, countersList);
 		else
 			board.refreshAdapter();
+		
+		board.sortCounters();
 	}
 }
