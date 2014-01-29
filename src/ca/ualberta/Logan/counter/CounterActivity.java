@@ -18,6 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+//sub activity that is launched when the "Count" button on a counter is clicked
+//implements a button that increases count by 1, and a button which resets the count
+//shows user the current count
+//saves data after each increment/reset
+//loads data in onResume()
+//saves from and loads to a Storage object
 public class CounterActivity extends BaseActivity
 {
 	private Storage storage;

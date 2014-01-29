@@ -24,6 +24,8 @@ import android.widget.ListView;
 //implements button for adding new counters
 //saves data after every operation that changes the list of counters
 //loads data in onResume()
+//saves from and loads to a BoardView object
+//the ListView is controlled by a CounterAdapter in the BoardView object
 public class CounterListActivity extends BaseActivity
 {
 	private BoardView board;
