@@ -19,6 +19,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+//initial activity
+//shows the user a list of counters in a ListView sorted by count
+//implements button for adding new counters
+//saves data after every operation that changes the list of counters
+//loads data in onResume()
 public class CounterListActivity extends BaseActivity
 {
 	private BoardView board;
@@ -49,22 +54,12 @@ public class CounterListActivity extends BaseActivity
 		
 		countersList.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
 		
-		countersList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-		{
-		    public void onItemClick(AdapterView parent, View v, int position, long id)
-		    {    	
-		    	setResult(RESULT_OK);
-		        finish();
-		    }
-		});
-		
 		recoverData();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.counter, menu);
 		return true;
 	}
