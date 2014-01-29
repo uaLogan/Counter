@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.util.Log;
-
-
+@SuppressWarnings("deprecation")
 public class CounterStats
 {
 	private Counter counter;
@@ -352,12 +350,9 @@ public class CounterStats
 		c.setFirstDayOfWeek(Calendar.MONDAY);
 		c.set(Calendar.WEEK_OF_YEAR, weekOfYear);
 		
-		int count = 0;
-		
 		while(c.get(Calendar.DAY_OF_WEEK) != c.getFirstDayOfWeek())
 		{
 			c.add(Calendar.DATE, -1);
-			count++;
 		}
 		
 		return c.getTime();

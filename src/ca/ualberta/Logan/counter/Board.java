@@ -3,9 +3,6 @@ package ca.ualberta.Logan.counter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import android.content.Context;
-import android.widget.ListView;
-
 public class Board
 {
 	protected int total;

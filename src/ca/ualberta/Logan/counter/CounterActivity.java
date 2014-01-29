@@ -7,23 +7,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class CounterActivity extends BaseActivity
@@ -33,7 +25,7 @@ public class CounterActivity extends BaseActivity
 	private Button countButton;
 	private Button resetButton;
 	private TextView titleText;
-	private TextView currText;
+	//private TextView currText;
 	
 	int id = 0;
 	
@@ -48,7 +40,7 @@ public class CounterActivity extends BaseActivity
 		countButton = (Button) findViewById(R.id.countButton);
 		resetButton = (Button) findViewById(R.id.resetButton);
 		titleText = (TextView) findViewById(R.id.titleTextView);
-		currText = (TextView) findViewById(R.id.currTextView);
+		//currText = (TextView) findViewById(R.id.currTextView);
 		
 		Intent intent = getIntent();
 		id = intent.getIntExtra("COUNTER_ID", 0);

@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.app.Activity;
 import android.app.AlertDialog;
 
 //Mostly adapted from http://stackoverflow.com/questions/2265661/how-to-use-arrayadaptermyclass
