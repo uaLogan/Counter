@@ -34,3 +34,4 @@ proguard/
 
 # Other #
 notes.txt~
+*.zargo~
