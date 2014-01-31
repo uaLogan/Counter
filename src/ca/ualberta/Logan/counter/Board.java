@@ -3,10 +3,6 @@ package ca.ualberta.Logan.counter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//the Counter class stores a list of counts/clicks (class Entry)
-//also stores a name that is used by the user to organize counters
-//and an id that is used internally to organize counters
-
 //the Board class stores a list of all counters (class Counter)
 //provides a method for generating new unique counter ID's
 public class Board

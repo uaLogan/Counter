@@ -5,6 +5,7 @@ import java.util.ArrayList;
 //the Counter class stores a list of counts/clicks (class Entry)
 //also stores a name that is used by the user to organize counters
 //and an id that is used internally to organize counters
+//the id should be unique, but the name can be duplicated
 public class Counter
 {
 	private String name;
