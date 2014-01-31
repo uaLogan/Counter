@@ -18,5 +18,7 @@ abstract public class BaseActivity extends Activity
 		recoverData();
 	}
 	
+	//this method should always be called by onResume
+	//it is intended to load data from file and update the view
 	abstract protected void recoverData();
 }

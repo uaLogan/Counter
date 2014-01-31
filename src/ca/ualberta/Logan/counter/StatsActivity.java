@@ -15,6 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+//sub activity that is launched when the "Stats" button on a counter is pressed
+//implements four buttons for hourly, daily, weekly, and monthly statistics
+//displays counts that occurred in each hour/day/week/month in a ListView
+//loads data in onResume()
+//loads to a Storage object
 public class StatsActivity extends BaseActivity
 {
 	private Storage storage;
@@ -31,6 +36,8 @@ public class StatsActivity extends BaseActivity
 
 	int id = 0;
 	
+	//fetches counter ID as intent from CounterListActivity
+	//sets up listeners for the four buttons
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -56,6 +63,8 @@ public class StatsActivity extends BaseActivity
 		
 		hourButton.setOnClickListener(new View.OnClickListener()
 		{
+			//each listener simply gets a new list of statistic strings
+			//and then refreshes the adapter using UpdateListView()
 			@Override
 			public void onClick(View v)
 			{
@@ -96,6 +105,7 @@ public class StatsActivity extends BaseActivity
 		
 	}
 	
+	//refreshes the adapter using the current statStrings ArrayList
 	protected void UpdateListView()
 	{
 		adapter = new ArrayAdapter<String>(this,R.layout.stats_list, statStrings);
@@ -103,6 +113,7 @@ public class StatsActivity extends BaseActivity
 		adapter.notifyDataSetChanged();
 	}
 	
+	//loads the Storage object from file using gson
 	protected Storage loadStorage()
 	{
 		Storage storage = null;
@@ -132,6 +143,7 @@ public class StatsActivity extends BaseActivity
 		return true;
 	}
 	
+	//simply loads the Storage object
 	@Override
 	protected void recoverData()
 	{

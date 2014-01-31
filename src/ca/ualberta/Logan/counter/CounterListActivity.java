@@ -32,6 +32,7 @@ public class CounterListActivity extends BaseActivity
 	private Gson gson;
 	private ListView countersList;
 	
+	//sets up listener for the Add New button
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -46,6 +47,7 @@ public class CounterListActivity extends BaseActivity
 		
 		addButton.setOnClickListener(new View.OnClickListener()
 		{
+			//add a new counter
 			@Override
 			public void onClick(View v)
 			{
@@ -66,6 +68,7 @@ public class CounterListActivity extends BaseActivity
 		return true;
 	}
 	
+	//loads the Board object from file using gson
 	protected BoardView loadBoard()
 	{
 		BoardView b = null;
@@ -86,6 +89,7 @@ public class CounterListActivity extends BaseActivity
 		return b;
 	}
 	
+	//saves the Board object to file using gson
 	protected void saveBoard(BoardView board)
 	{
 		FileOutputStream fos;
@@ -110,11 +114,13 @@ public class CounterListActivity extends BaseActivity
 		}
 	}
 	
+	//no parameter to allow other classes (CounterAdapter specifically) to save
 	public void saveBoard()
 	{
 		saveBoard(board);
 	}
 	
+	//load the Board object and refresh the ListView
 	protected void recoverData()
 	{
 		board = loadBoard();

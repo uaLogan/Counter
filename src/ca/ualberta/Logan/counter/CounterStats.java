@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+//a class that provides statistical data for a single Counter object which it aggregates
+//returns hourly/daily/weekly/monthly stats as an Arraylist of strings
 @SuppressWarnings("deprecation")
 public class CounterStats
 {
@@ -21,6 +23,7 @@ public class CounterStats
 		return counter;
 	}
 
+	//get monthly stats
 	public ArrayList<String> MonthStats()
 	{
 		ArrayList<Entry> entries = counter.getEntries();
@@ -33,6 +36,7 @@ public class CounterStats
 		return stats.getListing();
 	}
 	
+	//get weekly stats
 	public ArrayList<String> WeekStats()
 	{
 		ArrayList<Entry> entries = counter.getEntries();
@@ -45,6 +49,7 @@ public class CounterStats
 		return stats.getListing();
 	}
 	
+	//get daily stats
 	public ArrayList<String> DayStats()
 	{
 		ArrayList<Entry> entries = counter.getEntries();
@@ -57,6 +62,7 @@ public class CounterStats
 		return stats.getListing();
 	}
 	
+	//get hourly stats
 	public ArrayList<String> HourStats()
 	{
 		ArrayList<Entry> entries = counter.getEntries();
@@ -69,13 +75,17 @@ public class CounterStats
 		return stats.getListing();
 	}
 	
+	//convert a month integer to the first three letters of the month string
 	protected String formatMonth(int month)
 	{
 		return (new DateFormatSymbols().getMonths()[month]).substring(0, 3);
 	}
 	
+	//base class for a single statistic
+	//a statistic represents the number of counts for single period of time
 	abstract class BaseStat
 	{
+		//all statistics objects will require a month and year
 		protected int month;
 		protected int year;
 		protected int count;
@@ -109,6 +119,7 @@ public class CounterStats
 		}
 	}
 
+	//monthly statistic class
 	private class MonthStat extends BaseStat
 	{
 		public MonthStat(int month, int year, int count)
@@ -116,6 +127,7 @@ public class CounterStats
 			super(month, year, count);
 		}
 
+		//compare this month to the argument month
 		public boolean isStat(int month, int year)
 		{
 			if(month == this.month && year == this.year)
@@ -125,6 +137,7 @@ public class CounterStats
 		}
 	}
 	
+	//weekly statistic class
 	private class WeekStat extends BaseStat
 	{
 		private int weekof;
@@ -140,6 +153,7 @@ public class CounterStats
 			return weekof;
 		}
 
+		//compare this week to the argument week
 		public boolean isStat(int week, int month, int year)
 		{
 			if(month == this.month && year == this.year)
@@ -153,6 +167,7 @@ public class CounterStats
 		}
 	}
 	
+	//daily statistic class
 	private class DayStat extends BaseStat
 	{
 		private int day;
@@ -168,6 +183,7 @@ public class CounterStats
 			return day;
 		}
 
+		//compare this day to the argument day
 		public boolean isStat(int day, int month, int year)
 		{
 			if(month == this.month && year == this.year)
@@ -180,6 +196,7 @@ public class CounterStats
 		}
 	}
 	
+	//hourly stat class
 	private class HourStat extends BaseStat
 	{
 		private int day;
@@ -202,6 +219,7 @@ public class CounterStats
 			return hour;
 		}
 
+		//compare this hour to the argument hour
 		public boolean isStat(int hour, int day, int month, int year)
 		{
 			if(month == this.month && year == this.year)
@@ -214,12 +232,16 @@ public class CounterStats
 		}
 	}
 
+	//base class for a list of statistics (class BaseStat)
+	//should allow for Entry objects to be processed
+	//should be able to return statistics info as ArrayList of strings
 	interface BaseStats
 	{
-		public void addEntry(Entry entry);
-		public ArrayList<String> getListing();
+		abstract public void addEntry(Entry entry);
+		abstract public ArrayList<String> getListing();
 	}
 	
+	//monthly stats list class
 	protected class MonthStats implements BaseStats
 	{
 		private ArrayList<MonthStat> statsList;
@@ -230,6 +252,9 @@ public class CounterStats
 			statsList = new ArrayList<MonthStat>();
 		}
 		
+		//add a new entry
+		//if it already exists in list, then increment that statistic
+		//otherwise add a new statistic to the list
 		public void addEntry(Entry entry)
 		{
 			int month = entry.getTimestamp().getMonth();
@@ -256,6 +281,7 @@ public class CounterStats
 			}
 		}
 		
+		//get the actual statistics info as an ArrayList of String
 		public ArrayList<String> getListing()
 		{
 			String str = "";
@@ -273,6 +299,7 @@ public class CounterStats
 		}
 	}
 	
+	//weekly stats list class
 	protected class WeekStats implements BaseStats
 	{
 		private ArrayList<WeekStat> statsList;
@@ -283,6 +310,9 @@ public class CounterStats
 			statsList = new ArrayList<WeekStat>();
 		}
 		
+		//add a new entry
+		//if it already exists in list, then increment that statistic
+		//otherwise add a new statistic to the list
 		public void addEntry(Entry entry)
 		{
 			Date date = entry.getTimestamp();
@@ -316,6 +346,7 @@ public class CounterStats
 			}
 		}
 		
+		//get the actual statistics info as an ArrayList of String
 		public ArrayList<String> getListing()
 		{
 			String str = "";
@@ -342,6 +373,7 @@ public class CounterStats
 		}
 	}
 	
+	//converts a WEEK_OF_YEAR attribute to the actual month and date
 	static Date GetFirstDateOfWeek(int weekOfYear, int year)
 	{
 		Calendar c = Calendar.getInstance();
@@ -358,6 +390,7 @@ public class CounterStats
 		return c.getTime();
 	}
 	
+	//daily stats list class
 	protected class DayStats implements BaseStats
 	{
 		private ArrayList<DayStat> statsList;
@@ -368,6 +401,9 @@ public class CounterStats
 			statsList = new ArrayList<DayStat>();
 		}
 		
+		//add a new entry
+		//if it already exists in list, then increment that statistic
+		//otherwise add a new statistic to the list
 		public void addEntry(Entry entry)
 		{
 			Date date = entry.getTimestamp();
@@ -397,6 +433,7 @@ public class CounterStats
 			}
 		}
 		
+		//get the actual statistics info as an ArrayList of String
 		public ArrayList<String> getListing()
 		{
 			String str = "";
@@ -414,6 +451,7 @@ public class CounterStats
 		}
 	}
 	
+	//hourly stats list class
 	protected class HourStats implements BaseStats
 	{
 		private ArrayList<HourStat> statsList;
@@ -424,6 +462,9 @@ public class CounterStats
 			statsList = new ArrayList<HourStat>();
 		}
 		
+		//add a new entry
+		//if it already exists in list, then increment that statistic
+		//otherwise add a new statistic to the list
 		public void addEntry(Entry entry)
 		{
 			Date date = entry.getTimestamp();
@@ -454,6 +495,7 @@ public class CounterStats
 			}
 		}
 		
+		//get the actual statistics info as an ArrayList of String
 		public ArrayList<String> getListing()
 		{
 			String str = "";
@@ -471,25 +513,3 @@ public class CounterStats
 		}
 	}
 }
-
-
-
-/* struct{month, year, count} monthStats
- * vector<monthStats>
- * 
- * 
- * for each entry
- * is in list?
- * if yes:
- *   inc
- * if no:
- *   add new
- * 
- * then qsort
- * 
- * 
- * 
- * 
- * 
- * 
- */

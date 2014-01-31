@@ -35,6 +35,8 @@ public class CounterActivity extends BaseActivity
 	
 	int id = 0;
 	
+	//fetches counter ID as intent from CounterListActivity
+	//sets up listeners for buttons
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -53,6 +55,7 @@ public class CounterActivity extends BaseActivity
 		
 		countButton.setOnClickListener(new View.OnClickListener()
 		{
+			//increments the count
 			@Override
 			public void onClick(View v)
 			{
@@ -65,6 +68,7 @@ public class CounterActivity extends BaseActivity
 		
 		resetButton.setOnClickListener(new View.OnClickListener()
 		{
+			//sets the count to 0
 			@Override
 			public void onClick(View v)
 			{
@@ -78,6 +82,7 @@ public class CounterActivity extends BaseActivity
 		recoverData();
 	}
 	
+	//saves the Storage object using gson
 	protected void saveStorage(Storage storage)
 	{
 		FileOutputStream fos;
@@ -100,6 +105,7 @@ public class CounterActivity extends BaseActivity
 		}
 	}
 	
+	//loads the Storage object using gson
 	protected Storage loadStorage()
 	{
 		Storage storage = null;
@@ -129,6 +135,7 @@ public class CounterActivity extends BaseActivity
 		return true;
 	}
 	
+	//loads the Storage object and updates the displayed count
 	protected void recoverData()
 	{
 		storage = loadStorage();
@@ -142,6 +149,7 @@ public class CounterActivity extends BaseActivity
 		}
 	}
 	
+	//updates the displyed current count
 	private void setCurrCount(long count)
 	{
 		//currText.setText(String.format("Count: %s", Long.toString(count)));

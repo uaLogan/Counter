@@ -2,7 +2,8 @@ package ca.ualberta.Logan.counter;
 
 import java.util.Date;
 
-
+//class that records a single count/click
+//stores only the timestamp of the count
 public class Entry
 {
 private Date timestamp;

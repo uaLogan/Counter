@@ -2,7 +2,9 @@ package ca.ualberta.Logan.counter;
 
 import java.util.ArrayList;
 
-
+//the Counter class stores a list of counts/clicks (class Entry)
+//also stores a name that is used by the user to organize counters
+//and an id that is used internally to organize counters
 public class Counter
 {
 	private String name;
@@ -37,13 +39,15 @@ public class Counter
 		this.entries = entries;
 	}
 	
-	public void addEntry()
+	//add a new Entry object to the list
+	protected void addEntry()
 	{
 		Entry entry = new Entry();
 		ArrayList<Entry> list = this.getEntries();
 		list.add(entry);
 	}
 	
+	//new count/click
 	public long increment()
 	{
 		this.addEntry();
@@ -51,12 +55,14 @@ public class Counter
 		return count;
 	}
 	
-	public void clearEntries()
+	//remove all Entry objects
+	protected void clearEntries()
 	{
 		ArrayList<Entry> list = this.getEntries();
 		list.clear();
 	}
 
+	//reset the Counter completely
 	public void reset()
 	{
 		this.clearEntries();
@@ -104,11 +110,4 @@ public class Counter
 	{
 		this.id = id;
 	}
-	
-	public String toString ()
-	{
-		String res = this.getName() + " - " + this.getCount();
-		return res;
-	}
-
 }
